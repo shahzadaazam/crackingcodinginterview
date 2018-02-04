@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,9 +60,70 @@ public class main{
         //**************** Chapter 1 - pg 72 ****************
         //TODO: Q1.1 Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
 
+        String testString1 = "abcdefg";
+        String testString2 = "azam";
+
+        System.out.println("is String1 unique?: " + hasUnique(testString1));
+        System.out.println("is String2 unique?: " + hasUnique(testString2));
+
+        //Trying with HashMap
+
+        System.out.println("***********************************");
+
+        System.out.println("is String1 unique?: " + hasUniqueHash(testString1));
+        System.out.println("is String2 unique?: " + hasUniqueHash(testString2));
+
+
         //***************************************************
 
 
+
+    }
+
+    public static Boolean hasUniqueHash(String test){   //Runtime of O(n) worst case and O(n/2) average in case of duplicates??
+
+        char[] chars = test.toCharArray();  //Mistake: Cannot use a Character[] array here
+        Boolean unique = true;
+        HashMap<Character, Boolean> map = new HashMap<>();
+        int counter = 0;
+
+        for(char ch : chars){
+            if(map.get(ch) != null && map.get(ch) == true){ //Mistake: If you don't check for null you get a null pointer exception
+                unique = false;
+                System.out.println("Runtime is: " + counter);
+                return unique;
+            } else {
+                counter++;
+                map.put(ch, true);
+            }
+        }
+        System.out.println("Runtime is: " + counter);
+        return unique;
+    }
+
+
+    public static Boolean hasUnique(String test){   //Runtime of O(n^2) worst case and O(n) average best case??
+
+        char[] chars = test.toCharArray();  //Mistake: Note the method to convert string to char array
+        Boolean unique = true;
+        int counter = 0;
+
+        for(int i = 0; i < chars.length - 1; i++){
+            for(int j = i + 1; j < chars.length; j++){
+
+                counter++;
+                if(chars[i] == chars[j]){
+                    unique = false;
+                    System.out.println("Runtime is: " + counter);
+                    return unique;
+
+
+                }
+            }
+        }
+
+        System.out.println("Runtime is: " + counter);
+        return unique;
 
     }
 
