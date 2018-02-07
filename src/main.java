@@ -1,7 +1,6 @@
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class main{
 
@@ -73,12 +72,114 @@ public class main{
         System.out.println("is String1 unique?: " + hasUniqueHash(testString1));
         System.out.println("is String2 unique?: " + hasUniqueHash(testString2));
 
+        //Trying the book solution
+        System.out.println("***********************************");
+        System.out.println("is String1 unique?: " + hasUniqueChars(testString1));
+        System.out.println("is String2 unique?: " + hasUniqueChars(testString2));
+
+        //***************************************************
+
+        //**************** Chapter 1 - pg 72 ****************
+        //TODO: Q1.3 Given two strings, write a method to decide if one is a permutation of the other.
+
+        //Brute force using Java Collections native sort
+
+        String anagramString1 = "azam";
+        String anagramString2 = "maza";
+
+        System.out.println("***********************************");
+        System.out.println("Are both strings a permutation of each other?: " + permutedStrings(anagramString1, anagramString2));
+
+        //Optimizing it using HashMaps
+
+        System.out.println("***********************************");
+        System.out.println("Are both strings a permutation of each other?: " + anagramStringsHash(anagramString1, anagramString2));
+
+        //Optimize it further
 
         //***************************************************
 
 
+    }
+
+    public static Boolean anagramStringsHash(String str1, String str2){ //Runtime: linear? ~O(n)??
+
+        if (str1.length() != str2.length()){
+            return false;
+        } else {
+
+            Map<Character, Integer> stringHash1 = new HashMap<>();
+            Map<Character, Integer> stringHash2 = new HashMap<>();
+
+            char[] charString1 = str1.toCharArray();
+            char[] charString2 = str2.toCharArray();
+
+            for(Character ch : charString1){
+                if(stringHash1.get(ch) == null){
+                    stringHash1.put(ch, 0);
+                } else {
+                    stringHash1.replace(ch, stringHash1.get(ch));
+                }
+            }
+
+            for(Character ch : charString2){
+                if(stringHash2.get(ch) == null){
+                    stringHash2.put(ch, 0);
+                } else {
+                    stringHash2.replace(ch, stringHash2.get(ch));
+                }
+            }
+
+            return stringHash1.equals(stringHash2);
+        }
+    }
+
+
+    public static Boolean permutedStrings(String str1, String str2){    //Runtime O(nlogn)?
+
+        char[] charString1 = str1.toCharArray();
+        char[] charString2 = str2.toCharArray();
+
+        List<Character> stringCol1 = new ArrayList<>();
+        List<Character> stringCol2 = new ArrayList<>();
+
+        if (str1.length() != str2.length()){
+            return false;
+        } else {
+
+            for(Character ch : charString1){
+                stringCol1.add(ch);
+            }
+
+            for(Character ch : charString2){
+                stringCol2.add(ch);
+            }
+
+            Collections.sort(stringCol1);
+            Collections.sort(stringCol2);
+
+            return(stringCol1.equals(stringCol2));
+        }
 
     }
+
+
+    public static Boolean hasUniqueChars(String str){   //Mistake: missed the access identifier and static
+
+        boolean[] characterArray = new boolean[256];    //Mistake: wrote Int instead of int AND made an int array instead of boolean
+
+        for(int i = 0; i < str.length(); i++) { //Mistake: str.length
+
+            if(characterArray[str.charAt(i)]){
+                return false;
+            } else {
+                characterArray[str.charAt(i)] = true;
+            }
+
+        }
+        return true;    //Mistake: forgot to add this statement
+    }
+
 
     public static Boolean hasUniqueHash(String test){   //Runtime of O(n) worst case and O(n/2) average in case of duplicates??
 
