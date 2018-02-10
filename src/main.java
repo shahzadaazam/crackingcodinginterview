@@ -174,6 +174,21 @@ public class main{
 
         //***************************************************
 
+        //**************** Chapter 2 - pg 75 ****************
+        //TODO: Implement a LinkedList using a class Node
+
+        Node first = new Node(1);
+        first.appendToTail(2);
+        first.appendToTail(3);
+        first.appendToTail(4);
+        first.appendToTail(5);
+
+        System.out.println("***********************************");
+        first.printList();
+
+        //***************************************************
+
+
     }
 
     public static void toZero(int[][] matrix){  //Runtime is O(mn + mn + m + n) = ~O(mn)
