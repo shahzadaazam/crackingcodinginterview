@@ -1,6 +1,7 @@
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class main{
 
@@ -56,7 +57,7 @@ public class main{
         //***************************************************
 
 
-        //**************** Chapter 1 - pg 72 ****************
+        //**************** Chapter 1 - pg 73 ****************
         //TODO: Q1.1 Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
 
         String testString1 = "abcdefg";
@@ -79,7 +80,7 @@ public class main{
 
         //***************************************************
 
-        //**************** Chapter 1 - pg 72 ****************
+        //**************** Chapter 1 - pg 73 ****************
         //TODO: Q1.3 Given two strings, write a method to decide if one is a permutation of the other.
 
         //Brute force using Java Collections native sort
@@ -95,11 +96,250 @@ public class main{
         System.out.println("***********************************");
         System.out.println("Are both strings a permutation of each other?: " + anagramStringsHash(anagramString1, anagramString2));
 
-        //Optimize it further
+        //Optimize it further. Use Arrays sort method
+
+        System.out.println("***********************************");
+        System.out.println("Are both strings a permutation of each other? (Arrays.sort): " + anagramArraysSort(anagramString1, anagramString2));
 
         //***************************************************
 
 
+        //**************** Chapter 1 - pg 72 ****************
+        //TODO Q1.4: Write a method to replace all spaces in a string with'%20'
+
+        System.out.println("***********************************");
+        System.out.println("Output String: " + replaceSpaces("Mr John Smith    "));
+
+        //***************************************************
+
+        //**************** Chapter 1 - pg 73 ****************
+        //TODO Q1.5: Implement a method to perform basic string compression using the counts of repeated characters.
+
+        System.out.println("***********************************");
+        System.out.println("Output String: " + stringCompression("aaacccccbbbb"));
+        //Problem with the above is taht it changes the order!!!
+
+        //Try the book's naive inefficient solution
+
+        System.out.println("***********************************");
+        System.out.println("Output String: " + compressBasic("aaacccccbbbb"));
+
+
+        //Implement this efficiently without using StringBuffer
+
+        //***************************************************
+
+        //**************** Chapter 1 - pg 73 ****************
+        //TODO Q1.6: Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
+
+        int[][] testMatrix = {  //Mistake: Remember how to manually declare/assign n x n matrix
+                { 1, 2, 3, 4 },
+                { 5, 6, 7, 8 },
+                { 9, 10, 11, 12 },
+                { 13, 14, 15, 16 }
+        };
+
+        int[][] testMatrixSmall = {  //Mistake: Remember how to manually declare/assign n x n matrix
+                { 1, 2 },
+                { 3, 4 }
+        };
+
+        //Not in place
+
+        //Work in progress.
+        System.out.println("***********************************");
+        printMatrix(testMatrix);
+
+        System.out.println("***********************************");
+        rotate90(testMatrix);
+        printMatrix(testMatrix);
+
+
+
+        //***************************************************
+
+        //**************** Chapter 1 - pg 73 ****************
+        //TODO Q1.7: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+
+        int[][] zeroMatrix = {  //Mistake: Remember how to manually declare/assign n x n matrix
+                { 1, 1, 1 },
+                { 1, 0, 1 },
+                { 1, 1, 1 },
+                { 1, 1, 1 }
+        };
+
+        System.out.println("***********************************");
+        toZero(zeroMatrix);
+
+
+        //***************************************************
+
+    }
+
+    public static void toZero(int[][] matrix){  //Runtime is O(mn + mn + m + n) = ~O(mn)
+
+        int rows = matrix.length;
+        System.out.println("m is: " + rows);
+
+        int columns = matrix[0].length;
+        System.out.println("n is: " + columns);
+
+        int[][] result = new int[rows][columns];
+
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < columns; j++){
+                result[i][j] = matrix[i][j];
+            }
+        }
+
+//        printMatrix(result);
+
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < columns; j++){
+
+                if(matrix[i][j] == 0){
+
+                    for (int k = 0; k < columns; k++){
+
+                        result[i][k] = 0;
+                    }
+                    for (int l = 0; l < rows; l++){
+
+                        result[l][j] = 0;
+                    }
+                    System.out.println("***********************************");
+                    printMatrix(result);
+                }
+            }
+        }
+    }
+
+
+    public static void rotate90(int[][] matrix){
+
+        int n = matrix.length;
+
+        int[][] result = new int[n][n];
+
+        for(int layer = 0; layer < n/2; layer++){
+            int last = matrix.length - 1 - layer;
+
+            for(int i = layer; i < last; i++){
+                result[i][last] = matrix[0][i];
+                result[last][last-i] = matrix[i][last];
+                result[last-i][0] = matrix[last][last-i];
+                result[0][i] = matrix[last-i][0];
+            }
+        }
+
+
+
+//        matrix = result;  //Mistake: Can't do this!
+//        matrix = result.clone();
+//        printMatrix(matrix);
+        System.arraycopy(result, 0, matrix, 0, result.length);    //Another possibility
+    }
+
+    public static void printMatrix(int[][] matrix){ //Mistake: Don't forget void return type
+
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static String compressBasic(String input){
+
+        String myString = "";
+        char last = input.charAt(0);
+        int counter = 1;
+
+        for(int i = 1; i < input.length(); i++){
+            if(input.charAt(i) == last){
+                counter++;
+            } else {
+                myString = myString + last + counter;
+                counter = 1;
+                last = input.charAt(i);
+            }
+        }
+        return myString + last + counter;
+    }
+
+    public static String stringCompression(String input){   //Runtime of O(n + k) ~O(n)
+
+        Map<Character, Integer> stringHash = new HashMap<>();
+
+        for(Character ch : input.toCharArray()){
+            if(stringHash.get(ch) == null){
+                stringHash.put(ch, 1);
+            } else {
+                stringHash.put(ch, stringHash.get(ch)+1);
+            }
+        }
+        Iterator it = stringHash.keySet().iterator();
+        StringBuffer result = new StringBuffer();
+//
+        while(it.hasNext()){
+            Character temp = (Character) it.next();
+            result.append(temp);
+            result.append(stringHash.get(temp));
+        }
+
+        return (result.toString().length() < input.length()) ? result.toString() : input;
+
+    }
+
+    public static Boolean anagramArraysSort(String str1, String str2){
+
+        if(str1.length() != str2.length())
+            return false;
+        else {
+            char[] charStr1 = str1.toCharArray();
+            char[] charStr2 = str2.toCharArray();
+
+            Arrays.sort(charStr1);
+            Arrays.sort(charStr2);
+
+            for(int i = 0; i < charStr1.length; i++){
+
+                if(charStr1[i] != charStr2[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+    }
+
+    public static String replaceSpaces(String input){   //Runtime: O(3n)? ~O(n)
+
+        char[] charString = input.toCharArray();
+        List<Character> charList = new ArrayList<>();
+
+        char space = " ".charAt(0);
+        char percent = "%".charAt(0);
+        char two = "2".charAt(0);
+        char zero = "0".charAt(0);
+
+        for(Character ch : charString){
+            if(ch.equals(space)){   //Mistake: cannot .equals(" ")
+                charList.add(percent);
+                charList.add(two);
+                charList.add(zero);
+            } else {
+                charList.add(ch);
+            }
+        }
+        StringBuffer result = new StringBuffer();
+        for (Character ch : charList){
+            result.append(ch);
+        }
+        return result.toString();   //Mistake:
     }
 
     public static Boolean anagramStringsHash(String str1, String str2){ //Runtime: linear? ~O(n)??
