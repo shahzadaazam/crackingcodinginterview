@@ -180,7 +180,7 @@ public class main{
         Node first = new Node(1);
         first.appendToTail(2);
         first.appendToTail(3);
-        first.appendToTail(4);
+        first.appendToTail(3);
         first.appendToTail(5);
 
         System.out.println("***********************************");
@@ -189,7 +189,58 @@ public class main{
         //***************************************************
 
 
+        //**************** Chapter 2 - pg 76 ****************
+        //TODO: Implement a method deleteNode in class Node
+        //https://stackoverflow.com/questions/26191240/how-to-delete-a-node-from-a-linked-list-using-a-function-with-node-as-a-return-t?rq=1
+
+
+        first.deleteNode(first, 3);
+        System.out.println("***********************************");
+        first.printList();
+
+
+        System.out.println("***********************************");
+        first.deleteNode(first, 1).printList();
+
+
+
+        //***************************************************
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.1: Write code to remove duplicates from an unsorted linked list. How would you solve this problem if a temporary buffer is not allowed?
+        Node duplicates = new Node(4);
+        duplicates.appendToTail(2);
+        duplicates.appendToTail(3);
+        duplicates.appendToTail(2);
+        duplicates.appendToTail(1);
+
+        System.out.println("***********************************");
+        duplicates.printList();
+
+        Node.removeDuplicates(duplicates);
+        System.out.println("***********************************");
+        duplicates.printList();
+
+        //Improve efficiency
+
+        Node duplicates1 = new Node(4);
+        duplicates1.appendToTail(3);
+        duplicates1.appendToTail(4);
+        duplicates1.appendToTail(2);
+        duplicates1.appendToTail(1);
+
+        Node.deleteDuplicatesBetter(duplicates1);
+        System.out.println("***********************************");
+        duplicates1.printList();
+
+        //Without a temporary buffer
+
+
+
     }
+
+
+
 
     public static void toZero(int[][] matrix){  //Runtime is O(mn + mn + m + n) = ~O(mn)
 
