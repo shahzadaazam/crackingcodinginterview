@@ -235,7 +235,24 @@ public class main{
 
         //Without a temporary buffer
 
+        Node duplicates2 = new Node(4);
+        duplicates2.appendToTail(4);
+        duplicates2.appendToTail(3);
+        duplicates2.appendToTail(2);
+        duplicates2.appendToTail(1);
 
+        Node.deleteDuplicatesNoBuffer(duplicates2);
+        System.out.println("***********************************");
+        duplicates2.printList();
+
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.2: Implement an algorithm to find the kth to last element of a singly linked list.
+
+        System.out.println("***********************************");
+        System.out.println("Kth element of linked list is: " + Node.findElement(duplicates2, 5).data);
+
+        //***************************************************
 
     }
 

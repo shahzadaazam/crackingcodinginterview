@@ -52,6 +52,61 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
         System.out.println();
     }
 
+    public static Node findElement(Node head, int k){
+
+        int length = 1;
+        Node n = head;
+
+        while (n != null){
+            n = n.next;
+            length++;
+        }
+
+        n = head;
+        int steps = length - k;
+
+        for (int i = 0; i < steps; i++){
+            n = n.next;
+        }
+
+        return n;
+    }
+
+
+    public static void deleteDuplicatesNoBuffer(Node head){ //Runtime: O(n). Can do you this with 2 pointers
+
+        Node start = head;
+        Node prev = head;
+        Node next = head.next;
+
+
+        while (start != null){
+
+            while (next != null){
+
+                if (start.data == next.data){   //Mistake: have to compare data of nodes not nodes
+                    prev.next = next.next;  //Mistake: assignment statement is = not ==
+                    start.next = prev.next; //Mistake: forgot to do this
+//                    System.out.println("Match!");
+                }
+                prev = next;
+                next = next.next;
+//                System.out.println("Inner=> Start: " + start.data);
+//                System.out.println("Inner=> Prev: " + prev.data);
+//                if (next != null) System.out.println("Inner=> Next: " + next.data);
+
+            }
+
+            start = start.next;
+            prev = start;
+            if (prev != null ) next = prev.next;    //Mistake: Null pointer
+
+//            if (start != null) System.out.println("Start: " + start.data);
+//            if (prev != null) System.out.println("Prev: " + prev.data);
+//            if (next != null) System.out.println("Next: " + next.data);
+        }
+    }
+
     public static void deleteDuplicatesBetter(Node head){   //Runtime of ~O(n)
 
         Map<Integer, Boolean> map = new HashMap<>();
