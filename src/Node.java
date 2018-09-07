@@ -52,12 +52,59 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
         System.out.println();
     }
 
-    public static Node findElement(Node head, int k){
+    public static void deleteNode(Node n){  //Mistake: missed void
+
+        if (n == null) return;
+
+        if (n.next != null){
+            n.data = n.next.data;
+            n.next = n.next.next;
+        }
+
+    }
+
+    public static int nthToLast(Node head, int k){  //Runtime O(n). Try it again... need more practice
+
+        if (head == null){
+            return 0;
+        }
+
+        int i = nthToLast(head.next, k) + 1;
+
+        if (i == k){
+            System.out.println("Node's value is: " + head.data);
+        }
+        return i;
+
+    }
+
+    public static Node findElementIterative(Node head, int k){     //Mistake: int not Int
+
+        if (k < 1) return null;
+
+        Node p1 = head;
+        Node p2 = p1;
+        int counter = 0;
+
+        for (int i = 0; i < k; i++){
+            p2 = p2.next;
+        }
+
+        while (p2 != null){
+            counter++;
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        return p1;
+    }
+
+    public static Node findElement(Node head, int k){   //Runtime ~O(n)
 
         int length = 1;
         Node n = head;
 
-        while (n != null){
+        while (n.next != null){
             n = n.next;
             length++;
         }
@@ -126,6 +173,7 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
 
     }
 
+    //This isn't single pass. We can just pass through the linked list once and improve the time complexity
     public static Node removeDuplicates(Node head){ //Runtime: O(n^2)??
 
         if (head.next == null) return head;
@@ -155,4 +203,72 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
         return head;
     }
 
+    public static Node partition(Node head, int x)  //runtime of ~O(n), space of ~O(2n)
+    {
+        Boolean flag = false;
+        Node start = new Node(x);
+
+        Node front = start;
+        Node back = start;
+
+        Node n = head;
+
+        while(n != null) {
+            if (n.data >= x) {
+                if (n.data == x && !flag)
+                {
+                    flag = true;
+
+                } else {
+                    Node newList = new Node(n.data);
+
+                    front.next = newList;
+                    front = newList;
+                }
+            } else {
+                Node newList = new Node(n.data);
+
+                newList.next = back;
+                back = newList;
+            }
+            n = n.next;
+        }
+        return back;
+    }
+
+    public static Node addLinkedLists(Node firstList, Node secondList){
+
+        int addition = addHelper(firstList) + addHelper(secondList);
+        return makeLinkedListFromNumber(addition);
+    }
+
+    public static int addHelper(Node list){
+
+        Node n = list;
+        int sum = 0;
+        int multiplier = 1;
+
+        while (n != null){
+            sum = sum + n.data*multiplier;
+            System.out.println("Sum is: " + sum);
+            multiplier = multiplier*10;
+            n = n.next; //Forgot to increment
+        }
+        return sum;
+    }
+
+    //Took help from this link:
+    //https://stackoverflow.com/questions/3389264/how-to-get-the-separate-digits-of-an-int-number/3390244
+    public static Node makeLinkedListFromNumber(int sum){
+
+        int number = sum;
+        Node result = new Node(number%10);
+        number = number/10;
+
+        while(number!=0){
+            result.appendToTail(number%10);
+            number = number/10;
+        }
+        return result;
+    }
 }

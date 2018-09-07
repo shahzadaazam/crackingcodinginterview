@@ -250,9 +250,69 @@ public class main{
         //TODO Q2.2: Implement an algorithm to find the kth to last element of a singly linked list.
 
         System.out.println("***********************************");
-        System.out.println("Kth element of linked list is: " + Node.findElement(duplicates2, 5).data);
+        System.out.println("Kth element of linked list is: " + Node.findElement(duplicates2, 3).data);
+
+
+        //Iterative solution with two pointers
+        System.out.println("***********************************");
+        System.out.println("Kth element of linked list is: " + Node.findElementIterative(duplicates2, 1).data);
+
+        //Recursive solution 1
+        System.out.println("***********************************");
+        Node.nthToLast(duplicates2, 3);
+
+        //Try it with a wrapper class
 
         //***************************************************
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.3: Implement an algorithm to delete a node in the middle of a singly linked list, given only access to that node.
+
+        System.out.println("***********************************");
+        Node.deleteNode(duplicates2);
+        duplicates2.printList();
+
+        //***************************************************
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.4: Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x.
+
+        Node partitionLinkedList = new Node(2);
+        partitionLinkedList.appendToTail(5);
+        partitionLinkedList.appendToTail(1);
+        partitionLinkedList.appendToTail(3);
+        partitionLinkedList.appendToTail(9);
+
+
+        System.out.println("***********************************");
+        Node.partition(partitionLinkedList, 3).printList();
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.5: You have two numbers represented by a linked list, where each node contains a single digit....
+
+        Node firstList = new Node(7);
+        firstList.appendToTail(1);
+        firstList.appendToTail(6);
+
+        Node secondList = new Node(5);
+        secondList.appendToTail(9);
+        secondList.appendToTail(2);
+
+        System.out.println("***********************************");
+        Node.addLinkedLists(firstList, secondList).printList();
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 9 - pg 107 ****************
+        //TODO Q9.1: A child is running up a staircase with n steps, and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.
+
+        //****************************************************
+
+
 
     }
 
