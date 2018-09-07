@@ -41,7 +41,7 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
 
     }
 
-    public void printList(){
+    public void printList(){    //Note: this does not work on a circular linkedlist!!
 
         Node n = this;
 
@@ -236,7 +236,7 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
         return back;
     }
 
-    public static Node addLinkedLists(Node firstList, Node secondList){
+    public static Node addLinkedLists(Node firstList, Node secondList){ //Runtime of O(n) ??
 
         int addition = addHelper(firstList) + addHelper(secondList);
         return makeLinkedListFromNumber(addition);
@@ -271,4 +271,42 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
         }
         return result;
     }
+
+    public static Node createCircularLinkedList(){
+
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node n3 = new Node(3);
+        Node n4 = new Node(4);
+        Node n5 = new Node(5);
+
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+        n5.next = n3;
+
+        //System.out.println(n3.data);
+        //System.out.println(n5.next.data);
+
+        return n1;
+    }
+
+    public static Node detectLoop(Node list){
+
+        HashMap<Node, Integer> duplicates = new HashMap<>();    //Cannot use int here!
+        Node n = list;
+
+        while(true){
+            Integer count = (duplicates.get(n) != null) ? duplicates.get(n) : 0;
+            count += 1;
+            duplicates.put(n, count);   //count++ doesn't work since count will always be less than 1 since it is not updated!!
+            if (count > 1){
+                return n;
+            }
+            n = n.next;
+            //System.out.println(duplicates);
+        }
+    }
+
 }

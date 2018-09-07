@@ -307,6 +307,22 @@ public class main{
 
         //***************************************************
 
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.6: Given a circular linked list, implement an algorithm which returns the node at the beginning of the loop.
+
+        Node.createCircularLinkedList();
+        System.out.println("***********************************");
+        System.out.println(Node.detectLoop(Node.createCircularLinkedList()).data);
+        System.out.println(Node.detectLoop(Node.createCircularLinkedList()));
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 2 - pg 77 ****************
+        //TODO Q2.7: Implement a function to check if a linked list is a palindrome.
+
+        //***************************************************
+
         //**************** Chapter 9 - pg 107 ****************
         //TODO Q9.1: A child is running up a staircase with n steps, and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.
 
