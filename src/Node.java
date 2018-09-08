@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -307,6 +308,29 @@ public class Node {  //Mistake: Class declaration is with {} brackets not () bra
             n = n.next;
             //System.out.println(duplicates);
         }
+    }
+
+    public static boolean checkLinkedListPalindrome(Node list){
+
+        Node n = list;
+        ArrayList<Integer> listArray = new ArrayList<>();
+
+        //check for null or single element linked list
+        if (list == null || list.next == null) return false;
+
+        while(n != null){
+            listArray.add(n.data);  //Method is add not append.
+            n = n.next;
+        }
+
+        int rear = listArray.size()-1;  //there is no length() method on an arrayList. The correct method is size()
+        for (int i = 0; i < listArray.size()/2; i++){
+            if(listArray.get(i) != listArray.get(rear)){
+                return false;
+            }
+            rear--;
+        }
+        return true;
     }
 
 }

@@ -320,6 +320,18 @@ public class main{
 
         //**************** Chapter 2 - pg 77 ****************
         //TODO Q2.7: Implement a function to check if a linked list is a palindrome.
+        //A simpler solution is to reverse the list and compare with original linkedlist. If it is a palindrome both should be identical.
+
+        System.out.println("***********************************");
+        Node palindrome = new Node(1);
+        palindrome.appendToTail(2);
+        palindrome.appendToTail(3);
+        palindrome.appendToTail(2);
+        palindrome.appendToTail(1);
+        palindrome.printList();
+
+        System.out.println(Node.checkLinkedListPalindrome(palindrome));
+        System.out.println("***********************************");
 
         //***************************************************
 
