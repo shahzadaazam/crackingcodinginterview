@@ -335,6 +335,42 @@ public class main{
 
         //***************************************************
 
+        //**************** Chapter 3 - pg 79 ****************
+        //TODO Q3. Implement Stack
+        Stack newStack = new Stack();
+        newStack.push(1);
+        newStack.push(2);
+        newStack.push(3);
+
+        System.out.println("***********************************");
+        newStack.printStack();
+        System.out.println("***********************************");
+        System.out.println(newStack.pop());
+        System.out.println(newStack.pop());
+        System.out.println(newStack.pop());
+        System.out.println(newStack.pop()); //Trying to pop empty Stack
+        System.out.println("***********************************");
+        newStack.printStack();
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 3 - pg 79 ****************
+        //TODO Q3. Implement a Queue
+
+        Queue queue = new Queue(1);
+        queue.push(2);
+        queue.push(3);
+        queue.push(4);
+        queue.printQueue();
+        System.out.println("***********************************");
+        System.out.println(queue.pop());
+        System.out.println("***********************************");
+        queue.printQueue();
+        System.out.println("***********************************");
+
+        //***************************************************
+
         //**************** Chapter 9 - pg 107 ****************
         //TODO Q9.1: A child is running up a staircase with n steps, and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.
 
