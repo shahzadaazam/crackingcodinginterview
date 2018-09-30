@@ -28,7 +28,8 @@ public class Stack {
     }
 
     public Object peek() {
-        return top.data;
+        if (top != null) return top.data;
+        return null;
     }
 
     public void printStack() {
@@ -40,5 +41,9 @@ public class Stack {
             n = n.next;
         }
         System.out.println();
+    }
+
+    public boolean isEmpty() {
+        return top==null;
     }
 }

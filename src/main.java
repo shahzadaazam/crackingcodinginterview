@@ -1,3 +1,4 @@
+import apple.laf.JRSUIUtils;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
@@ -368,6 +369,186 @@ public class main{
         System.out.println("***********************************");
         queue.printQueue();
         System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 3 - pg 79 ****************
+        //TODO Q3.1 Describe how you could use a single array to implement three stacks.
+        ArrayStack arrStack = new ArrayStack();
+        //arrStack.pop(1);
+
+        //Populating all three stacks fully and also trying to overflow
+        //IMPORTANT: Don't forget break statements in switch case statements!!!
+
+        for(int i = 1; i < 4; i++) {
+            for (int j = 0; j < 100; j++) {
+                arrStack.push(i, j);
+            }
+        }
+
+        //Popping and printing elements for all three stacks and also trying to pop empty arrays
+        for(int i = 1; i < 4; i++) {
+            System.out.println("***********************************");
+            for (int j = 0; j < 100; j++) {
+                System.out.print(arrStack.pop(i) + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("***********************************");
+
+        //For simplicity assuming Stack will only hold ints
+        //***************************************************
+
+        //**************** Chapter 3 - pg 79 ****************
+        //TODO Q3.2 How would you design a stack which, in addition to push and pop, also has a function min which returns the minimum element? Push, pop and min should all operate in O(1) time.
+
+        MinStack minStack = new MinStack();
+        minStack.push(5);
+        System.out.println("***********************************");
+        System.out.println("Min is: " + minStack.min());
+        minStack.push(3);
+        System.out.println("Min is: " + minStack.min());
+        minStack.push(4);
+        System.out.println("Min is: " + minStack.min());
+        minStack.push(6);
+        System.out.println("Min is: " + minStack.min());
+        minStack.push(2);
+        System.out.println("Min is: " + minStack.min());
+        minStack.pop();
+        System.out.println("Min is: " + minStack.min());
+        minStack.pop();
+        System.out.println("Min is: " + minStack.min());
+        minStack.pop();
+        System.out.println("Min is: " + minStack.min());
+        minStack.pop();
+        System.out.println("Min is: " + minStack.min());
+        minStack.pop();
+        System.out.println("Min is: " + minStack.min());
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 3 - pg 79 ****************
+        //TODO Q3.3 Imagine a (literal) stack of plates.
+        System.out.println("***********************************");
+        StackSet stackSet = new StackSet(5);
+        stackSet.push(1);
+        stackSet.push(2);
+        stackSet.push(3);
+        stackSet.push(4);
+        stackSet.push(5);
+        stackSet.push(6);
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println(stackSet.pop());
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4. Implement a binary search tree
+
+        //Assuming duplicates aren't allowed. Also assuming tree holds ints
+
+        System.out.println("***********************************");
+        BinarySearchTree bst = new BinarySearchTree(10);
+        bst.insert(5);
+        bst.insert(8);
+        bst.insert(15);
+        bst.printInOrder();
+        System.out.println("***********************************");
+        bst.printPreOrder();
+        System.out.println("***********************************");
+        bst.printPostOrder();
+        System.out.println("***********************************");
+
+        System.out.println(bst.contains(5));
+        System.out.println(bst.contains(8));
+        System.out.println(bst.contains(15));
+        System.out.println(bst.contains(1));
+
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4. Implement DFS search of a binary tree
+
+        //DFS
+        bst.DFS(15);
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4. Implement BFS search of a binary tree
+        BinarySearchTree binarySearchTree = new BinarySearchTree(5);
+        binarySearchTree.insert(3);
+        binarySearchTree.insert(2);
+        binarySearchTree.insert(4);
+        binarySearchTree.insert(7);
+        binarySearchTree.insert(6);
+        binarySearchTree.insert(8);
+
+        binarySearchTree.BFS(8);
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4.1 Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
+
+        System.out.println("***********************************");
+        TreeNode t1 = new TreeNode(1);
+        TreeNode t2 = new TreeNode(2);
+        TreeNode t3 = new TreeNode(3);
+        TreeNode t4 = new TreeNode(4);
+        TreeNode t5 = new TreeNode(5);
+        TreeNode t6 = new TreeNode(6);
+        TreeNode t7 = new TreeNode(7);
+
+        //Balanced tree
+        t1.addLeftChild(t2);
+        t1.addRightChild(t3);
+        t3.addLeftChild(t4);
+        t3.addRightChild(t5);
+        t5.addRightChild(t6);
+        t2.addLeftChild(t7);
+        //t4.addLeftChild(t6);
+
+        System.out.println(TreeNode.isBalanced(t1));
+        System.out.println("***********************************");
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4.2 Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+
+        System.out.println("***********************************");
+        //Creating a graph
+        Graph graph = new Graph();
+
+        //DFS
+        System.out.println(graph.hasPathDFS(1, 6));
+        System.out.println("***********************************");
+
+        //BFS
+        System.out.println(graph.hasPathBFS(1, 5));
+        System.out.println("***********************************");
+
+
+        //***************************************************
+
+        //**************** Chapter 4 - pg 83 ****************
+        //TODO Q4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.
+        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        TreeNode minBST = TreeNode.createMinBST(arr, 0, 9);
+        System.out.println(TreeNode.isBalanced(minBST));
+        System.out.println(TreeNode.getHeight(minBST));
 
         //***************************************************
 

@@ -19,10 +19,18 @@ public class Queue {
         head = n;
     }
 
+    public Queue() {
+    }
+
     public void push(Object data) {
         Node n = new Node(data);
-        tail.next = n;
+        if (tail != null) {
+            tail.next = n;
+        }
         tail = n;
+        if (head == null) {
+            head = n;
+        }
     }
 
     public Object pop() {
@@ -41,6 +49,10 @@ public class Queue {
             n = n.next;
         }
         System.out.println();
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
 }
